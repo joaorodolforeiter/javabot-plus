@@ -7,13 +7,23 @@ datasource db {
   url      = "file:./data.sqlite"
 }
 
+model Usuario {
+  id       Int       @id @default(autoincrement())
+  nome     String
+  email    String    @unique
+  senha    String
+  endereco String?
+  telefone String?
+  adocoes  Adocao[]
+}
+
 model Animal {
   id          Int        @id @default(autoincrement())
   nome        String
   especie     String
   idade       Int
   descricao   String
-  imagemURL   String     
+  imagemURL   String 
   disponivel  Boolean    @default(true)
   adocoes     Adocao[]
 }
@@ -21,6 +31,8 @@ model Animal {
 model Adocao {
   id          Int       @id @default(autoincrement())
   dataAdocao  DateTime  @default(now())
+  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
+  usuarioId   Int
   animal      Animal    @relation(fields: [animalId], references: [id])
   animalId    Int
 }
