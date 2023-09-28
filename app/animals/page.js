@@ -1,5 +1,5 @@
-import AnimalCard from "@/components/AnimalCard";
 import { PrismaClient } from "@prisma/client";
+import AnimalCard from "../../components/AnimalCard";
 
 const prisma = new PrismaClient();
 const animals = await prisma.animal.findMany();
