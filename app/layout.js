@@ -1,6 +1,7 @@
 import Image from "next/image";
 import "./globals.css";
 import Link from "next/link";
+import { PawPrint } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata = {
   title: "Javabot Plus",
@@ -10,9 +11,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="mt-24">
+      <body className="pt-24 h-screen">
         <nav className="h-16 top-0 fixed w-screen bg-slate-200 flex justify-between items-center px-8 shadow-md">
-          <div className="font-bold text-xl">Javabot Plus</div>
+          <div className="font-bold text-xl flex gap-3 items-center">
+            <PawPrint size={32} weight="fill" /> Javabot Plus
+          </div>
 
           <div className="flex justify-center items-center gap-6">
             <div className="gap-3 flex divide-x-2">
