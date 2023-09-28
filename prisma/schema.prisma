@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./data.sqlite"
+}
+
+model Animal {
+  id          Int        @id @default(autoincrement())
+  nome        String
+  especie     String
+  idade       Int
+  descricao   String
+  imagemURL   String     
+  disponivel  Boolean    @default(true)
+  adocoes     Adocao[]
+}
+
+model Adocao {
+  id          Int       @id @default(autoincrement())
+  dataAdocao  DateTime  @default(now())
+  animal      Animal    @relation(fields: [animalId], references: [id])
+  animalId    Int
+}
