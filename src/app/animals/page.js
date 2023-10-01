@@ -1,6 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import AnimalCard from "../../components/AnimalCard";
 
+export const revalidate = 3600; // revalidate the data at most every hour
+
+export const dynamic = "force-dynamic";
+
 const prisma = new PrismaClient();
 const animals = await prisma.animal.findMany();
 
