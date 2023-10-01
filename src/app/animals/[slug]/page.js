@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Page({ params }) {
   const prisma = new PrismaClient();
