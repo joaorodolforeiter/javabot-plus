@@ -6,9 +6,9 @@ const animals = await prisma.animal.findMany();
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-12 items-center">
+    <div className="flex flex-col gap-12 items-center m-2">
       <h1 className="text-4xl mt-4">Animais Adotaveis</h1>
-      <div className="flex flex-wrap justify-center md:justify-normal container gap-8">
+      <div className="flex flex-wrap justify-center md:justify-normal container gap-4 sm:gap-6">
         {animals.map((animal) => (
           <AnimalCard
             key={animal.id}

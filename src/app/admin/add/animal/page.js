@@ -1,5 +1,7 @@
 "use client";
 
+import axios from "axios";
+
 export default function page() {
   function handleSubmit(event) {
     event.preventDefault();
@@ -7,9 +9,12 @@ export default function page() {
 
     console.log(data);
 
-    fetch("/api/add/animal", {
-      method: "POST",
-      body: { name: "data.nome.value" },
+    axios.post("/api/add/animal", {
+      name: data.nome.value,
+      especie: data.especie.value,
+      idade: data.idade.value,
+      descricao: data.descricao.value,
+      imageURL: data.imagemURL.value,
     });
   }
 

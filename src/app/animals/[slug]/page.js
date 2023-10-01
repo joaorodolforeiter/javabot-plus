@@ -11,9 +11,9 @@ export default async function Page({ params }) {
   return (
     <div className="flex justify-center">
       <div className="container">
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           <img
-            className="h-96 w-96 object-cover shadow-lg rounded-lg"
+            className="max-w-sm aspect-square m-6 object-cover shadow-lg rounded-lg"
             src={animal.imagemURL}
             alt="Animal Image"
           />
@@ -27,7 +27,7 @@ export default async function Page({ params }) {
             <div>
               <Link
                 href={`/adotar/${animal.id}`}
-                className="text-lg bg-green-200 hover:bg-green-300 transition-all p-3 rounded-lg shadow-md"
+                className="max-sm:flex max-sm:w-full max-sm:justify-center text-lg bg-green-200 hover:bg-green-300 transition-all p-3 rounded-lg shadow-md"
               >
                 Adotar
               </Link>

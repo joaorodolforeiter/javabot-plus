@@ -1,38 +1,38 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "sqlite"
-  url      = "file:./data.sqlite"
-}
-
 model Usuario {
-  id       Int       @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   nome     String
-  email    String    @unique
-  senha    String
+  email    String   @unique
   endereco String?
   telefone String?
   adocoes  Adocao[]
 }
 
 model Animal {
-  id          Int        @id @default(autoincrement())
-  nome        String
-  especie     String
-  idade       Int
-  descricao   String
-  imagemURL   String 
-  disponivel  Boolean    @default(true)
-  adocoes     Adocao[]
+  id         Int      @id @default(autoincrement())
+  nome       String
+  especie    String
+  idade      Int
+  descricao  String
+  imagemURL  String
+  disponivel Boolean  @default(true)
+  adocoes    Adocao[]
 }
 
 model Adocao {
-  id          Int       @id @default(autoincrement())
-  dataAdocao  DateTime  @default(now())
-  usuario     Usuario   @relation(fields: [usuarioId], references: [id])
-  usuarioId   Int
-  animal      Animal    @relation(fields: [animalId], references: [id])
-  animalId    Int
+  id         Int      @id @default(autoincrement())
+  dataAdocao DateTime @default(now())
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId  Int
+  animal     Animal   @relation(fields: [animalId], references: [id])
+  animalId   Int
 }
