@@ -8,6 +8,10 @@ export default async function Page({ params }) {
     where: { id: Number(params.slug) },
   });
 
+  if (!animal) {
+    redirect("/");
+  }
+
   return (
     <div className="flex justify-center">
       <div className="container">
