@@ -3,14 +3,15 @@ import { prisma } from "../../../../lib/prisma";
 
 export async function POST(request: Request) {
   const data = await request.json();
-  prisma.animal.create({
+  const animal = await prisma.animal.create({
     data: {
       nome: data.name,
       especie: data.especie,
-      idade: data.idade,
+      idade: Number(data.idade),
       descricao: data.descricao,
       imagemURL: data.imageURL,
     },
   });
-  return NextResponse.json({ data });
+  console.log(animal);
+  return NextResponse.json({ animal });
 }
