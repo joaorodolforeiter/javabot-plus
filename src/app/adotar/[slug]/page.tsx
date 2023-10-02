@@ -115,7 +115,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 id="data-nascimento"
                 required
               />
-              <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg p-3 mt-2 shadow-md rounded-md">
+              <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg transition-all p-3 mt-2 shadow-md rounded-md">
                 Enviar Solicitação
               </button>
             </form>
