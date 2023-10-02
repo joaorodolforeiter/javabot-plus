@@ -1,27 +1,26 @@
-"use client";
-
-import axios from "axios";
+import { redirect } from "next/navigation";
+import { prisma } from "../../../lib/prisma";
 
 export default function page() {
-  function handleSubmit(event) {
-    event.preventDefault();
-    const data = event.target.elements;
-
-    console.log(data);
-
-    axios.post("/api/add/animal", {
-      name: data.nome.value,
-      especie: data.especie.value,
-      idade: data.idade.value,
-      descricao: data.descricao.value,
-      imageURL: data.imagemURL.value,
+  async function handleSubmit(formData: FormData) {
+    "use server";
+    console.log(formData.get("ImagemURL"));
+    const animal = await prisma.animal.create({
+      data: {
+        nome: String(formData.get("nome")),
+        especie: String(formData.get("especie")),
+        idade: Number(formData.get("idade")),
+        descricao: String(formData.get("descricao")),
+        imagemURL: String(formData.get("imagemURL")),
+      },
     });
+    redirect(`/animals/${animal.id}`);
   }
 
   return (
     <div className="flex justify-center items-center h-full">
       <form
-        onSubmit={handleSubmit}
+        action={handleSubmit}
         className="flex flex-col max-w-md w-full p-6 bg-slate-200 rounded-lg shadow-lg gap-1"
       >
         <div className="flex">
@@ -32,6 +31,7 @@ export default function page() {
               name="nome"
               id="nome"
               placeholder="Nome do animal..."
+              required
             />
           </div>
           <div className="space-y-2">
@@ -41,6 +41,7 @@ export default function page() {
               name="especie"
               id="especie"
               placeholder="Especie do animal..."
+              required
             />
           </div>
         </div>
@@ -53,6 +54,7 @@ export default function page() {
           name="idade"
           id="idade"
           placeholder="Idade do animal..."
+          required
         />
         <label className="mt-2" htmlFor="descricao">
           Descricao
@@ -60,10 +62,10 @@ export default function page() {
         <textarea
           className="resize-none"
           rows={4}
-          type="text"
           name="descricao"
           id="descricao"
           placeholder="Descrição do animal..."
+          required
         ></textarea>
         <label className="mt-2" htmlFor="imagemURL">
           URL da Imagem
@@ -73,6 +75,7 @@ export default function page() {
           name="imagemURL"
           id="imagemURL"
           placeholder="Url da Imagem..."
+          required
         />
         <button
           className="mt-3 w-full bg-slate-300 p-3 rounded-lg shadow-md"

@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import AnimalCard from "../../components/AnimalCard";
+import { prisma } from "../../lib/prisma";
 
-export const revalidate = 3600; // revalidate the data at most every hour
+export const revalidate = 3600;
 
 export const dynamic = "force-dynamic";
 
-const prisma = new PrismaClient();
-const animals = await prisma.animal.findMany();
-
-export default function Page() {
+export default async function Page() {
+  const animals = await prisma.animal.findMany();
   return (
     <div className="flex flex-col gap-12 items-center m-2">
       <h1 className="text-4xl mt-4">Animais Adotaveis</h1>

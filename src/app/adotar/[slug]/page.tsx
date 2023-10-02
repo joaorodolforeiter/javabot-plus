@@ -1,21 +1,37 @@
 /* eslint-disable @next/next/no-img-element */
-import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { prisma } from "../../../lib/prisma";
 
-export default async function Page({ params }) {
-  const prisma = new PrismaClient();
+export default async function Page({ params }: { params: { slug: string } }) {
   const animal = await prisma.animal.findFirst({
     where: { id: Number(params.slug) },
   });
+
+  async function handleSubmit(formData: FormData) {
+    "use server";
+    await prisma.usuario.create({
+      data: {
+        nome: String(formData.get("nome")),
+        email: String(formData.get("email")),
+        endereco: String(formData.get("endereco")),
+        telefone: String(formData.get("telefone")),
+        adocoes: {
+          create: {
+            animalId: Number(params.slug),
+          },
+        },
+      },
+    });
+  }
 
   if (!animal) {
     redirect("/");
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex  justify-center">
       <div className="container">
-        <div className="flex justify-center gap-16">
+        <div className="flex max-md:flex-col justify-center gap-16">
           <div className="m-8 space-y-6">
             <img
               className="sm:max-w-sm aspect-square object-cover shadow-md rounded-lg"
@@ -31,42 +47,49 @@ export default async function Page({ params }) {
             <div className="text-3xl p-12 text-center">
               Formulario de Adoção
             </div>
-            <form className="flex flex-col bg-slate-200 p-6 rounded-lg shadow-md">
+            <form
+              action={handleSubmit}
+              className="flex flex-col bg-slate-200 p-6 rounded-lg shadow-md"
+            >
               <div className="text-xl mb-6 font-semibold">
                 Informações Pessoais
               </div>
 
-              <label htmlFor="">Nome</label>
+              <label htmlFor="nome">Nome</label>
               <input
                 className="mb-3 shadow-md rounded-md p-2"
                 placeholder="Nome..."
                 type="text"
-                name=""
-                id=""
+                name="nome"
+                id="nome"
+                required
               />
-              <label htmlFor="">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 className="mb-3 shadow-md rounded-md p-2"
                 placeholder="Email..."
-                type="text"
-                name=""
-                id=""
+                type="email"
+                name="email"
+                id="email"
+                required
               />
-              <label htmlFor="">Endereço</label>
+              <label htmlFor="endereco">Endereço</label>
               <input
                 className="mb-3 shadow-md rounded-md p-2"
                 placeholder="Endereço..."
                 type="text"
-                name=""
-                id=""
+                name="endereco"
+                id="endereco"
+                required
               />
-              <label htmlFor="">Telefone</label>
+              <label htmlFor="telefone">Telefone</label>
               <input
                 className="mb-3 shadow-md rounded-md p-2"
                 placeholder="Telefone..."
-                type="text"
-                name=""
-                id=""
+                type="tel"
+                name="telefone"
+                id="telefone"
+                required
               />
               <button className="bg-emerald-200 p-3 mt-2 shadow-md rounded-md">
                 Enviar Solicitação

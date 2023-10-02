@@ -1,7 +1,15 @@
 import Link from "next/link";
 
 /* eslint-disable @next/next/no-img-element */
-export default function AnimalCard({ name, image, id }) {
+export default function AnimalCard({
+  name,
+  image,
+  id,
+}: {
+  id: number;
+  image: string;
+  name: string;
+}) {
   return (
     <Link
       href={`/animals/${id}`}

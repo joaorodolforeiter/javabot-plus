@@ -37,13 +37,13 @@ export default function NavBar() {
             </Link>
           </div>
           <div className="flex justify-center items-center gap-3">
-            <Image
+            {/* <Image
               className="w-10 rounded-full"
               width={128}
               height={128}
               src="/avatar-logo.jpeg"
               alt="Account Photo"
-            />
+            /> */}
             <button
               onClick={() => setIsMenuOpen((p) => !p)}
               className="bg-slate-300 flex sm:hidden justify-center items-center shadow-md w-10 h-10 rounded-md"

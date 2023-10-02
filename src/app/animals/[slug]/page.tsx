@@ -1,16 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { prisma } from "../../../lib/prisma";
 
-export default async function Page({ params }) {
-  const prisma = new PrismaClient();
+export default async function Page({ params }: { params: { slug: string } }) {
   const animal = await prisma.animal.findFirst({
     where: { id: Number(params.slug) },
+    include: {
+      adocoes: { include: { usuario: true } },
+    },
   });
 
   if (!animal) {
-    redirect("/");
+    redirect("/animals");
   }
 
   return (
@@ -30,12 +32,18 @@ export default async function Page({ params }) {
             </div>
             <div>{animal.descricao}</div>
             <div>
-              <Link
-                href={`/adotar/${animal.id}`}
-                className="max-sm:flex max-sm:w-full max-sm:justify-center text-lg bg-green-200 hover:bg-green-300 transition-all p-3 rounded-lg shadow-md"
-              >
-                Adotar
-              </Link>
+              {animal.adocoes.length == 0 ? (
+                <Link
+                  href={`/adotar/${animal.id}`}
+                  className="max-sm:flex max-sm:w-full max-sm:justify-center text-lg bg-green-200 hover:bg-green-300 transition-all p-3 rounded-lg shadow-md"
+                >
+                  Adotar
+                </Link>
+              ) : (
+                <div className="flex max-sm:w-full justify-center text-lg bg-slate-200 cursor-not-allowed transition-all p-3 rounded-lg shadow-md">
+                  Adotado
+                </div>
+              )}
             </div>
           </div>
         </div>

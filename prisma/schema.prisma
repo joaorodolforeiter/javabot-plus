@@ -35,4 +35,7 @@ model Adocao {
   usuarioId  Int
   animal     Animal   @relation(fields: [animalId], references: [id])
   animalId   Int
+
+  @@index([usuarioId])
+  @@index([animalId])
 }
