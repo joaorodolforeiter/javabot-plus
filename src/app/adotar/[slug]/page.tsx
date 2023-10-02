@@ -17,7 +17,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
         endereco: String(formData.get("endereco")),
         telefone: String(formData.get("telefone")),
         cpf: String(formData.get("cpf")),
-        dataNascimento: new Date(String(formData.get("data-nascimento"))).toISOString(),//String(formData.get("data-nascimento")),
+        dataNascimento: new Date(
+          String(formData.get("data-nascimento"))
+        ).toISOString(),
         adocoes: {
           create: {
             animalId: Number(params.slug),
@@ -113,7 +115,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 id="data-nascimento"
                 required
               />
-              <button className="bg-emerald-200 p-3 mt-2 shadow-md rounded-md">
+              <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg p-3 mt-2 shadow-md rounded-md">
                 Enviar Solicitação
               </button>
             </form>
