@@ -9,12 +9,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   async function handleSubmit(formData: FormData) {
     "use server";
-    await prisma.usuario.create({
+
+    const user = await prisma.usuario.create({
       data: {
         nome: String(formData.get("nome")),
         email: String(formData.get("email")),
         endereco: String(formData.get("endereco")),
         telefone: String(formData.get("telefone")),
+        cpf: String(formData.get("cpf")),
+        dataNascimento: new Date(String(formData.get("data-nascimento"))).toISOString(),//String(formData.get("data-nascimento")),
         adocoes: {
           create: {
             animalId: Number(params.slug),
@@ -22,6 +25,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         },
       },
     });
+    console.log(user);
   }
 
   if (!animal) {
@@ -89,6 +93,24 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 type="tel"
                 name="telefone"
                 id="telefone"
+                required
+              />
+              <label htmlFor="cpf">CPF</label>
+              <input
+                className="mb-3 shadow-md rounded-md p-2"
+                placeholder="CPF..."
+                type="text"
+                name="cpf"
+                id="cpf"
+                required
+              />
+              <label htmlFor="data-nascimento">Data de nascimento</label>
+              <input
+                className="mb-3 shadow-md rounded-md p-2"
+                placeholder="Data de nascimento..."
+                type="date"
+                name="data-nascimento"
+                id="data-nascimento"
                 required
               />
               <button className="bg-emerald-200 p-3 mt-2 shadow-md rounded-md">
