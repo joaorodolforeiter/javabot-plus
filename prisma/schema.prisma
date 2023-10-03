@@ -9,26 +9,18 @@ generator client {
 }
 
 model Animal {
-  id         Int      @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   nome       String
   especie    String
   idade      Int
   descricao  String
   imagemURL  String
-  disponivel Boolean  @default(true)
-  adocoes    Adocao[]
-}
+  disponivel Boolean @default(true)
 
-model Adocao {
-  id         Int      @id @default(autoincrement())
-  dataAdocao DateTime @default(now())
-  usuario    User     @relation(fields: [usuarioId], references: [id])
-  usuarioId  String
-  animal     Animal   @relation(fields: [animalId], references: [id])
-  animalId   Int
+  usuario   User?   @relation(fields: [usuarioId], references: [id])
+  usuarioId String?
 
   @@index([usuarioId])
-  @@index([animalId])
 }
 
 model Account {
@@ -74,7 +66,7 @@ model User {
   dataNascimento DateTime?
   endereco       String?
   telefone       String?
-  adocoes        Adocao[]
+  adocoes        Animal[]
 }
 
 model VerificationToken {
