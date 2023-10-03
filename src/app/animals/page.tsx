@@ -13,7 +13,7 @@ export default async function Page() {
       <div className="flex flex-wrap justify-center md:justify-normal container gap-4 sm:gap-6">
         {animals.map(
           (animal) =>
-            animal.usuarioId && (
+            !animal.usuarioId && (
               <AnimalCard
                 key={animal.id}
                 id={animal.id}
