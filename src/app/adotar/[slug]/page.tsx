@@ -32,9 +32,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           String(formData.get("data-nascimento"))
         ).toISOString(),
         adocoes: {
-          create: {
-            animalId:animal?.id!
-          }
+          connect: [animal!],
         },
       },
     });
