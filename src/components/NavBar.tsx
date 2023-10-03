@@ -1,12 +1,15 @@
 "use client";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import { List, PawPrint } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const session = useSession();
 
   return (
     <nav className="top-0 fixed w-screen bg-slate-200 shadow-md">
@@ -37,13 +40,26 @@ export default function NavBar() {
             </Link>
           </div>
           <div className="flex justify-center items-center gap-3">
-            {/* <Image
-              className="w-10 rounded-full"
-              width={128}
-              height={128}
-              src="/avatar-logo.jpeg"
-              alt="Account Photo"
-            /> */}
+            {session ? (
+              <>
+                <div>{session.data?.user?.name}</div>
+                <Image
+                  className="w-10 rounded-full"
+                  width={128}
+                  height={128}
+                  src={session.data?.user?.image || ""}
+                  alt="Account Photo"
+                />
+              </>
+            ) : (
+              <button
+                className="bg-slate-300 flex justify-center items-center shadow-md p-2 rounded-md"
+                onClick={() => signIn()}
+              >
+                Login
+              </button>
+            )}
+
             <button
               onClick={() => setIsMenuOpen((p) => !p)}
               className="bg-slate-300 flex sm:hidden justify-center items-center shadow-md w-10 h-10 rounded-md"

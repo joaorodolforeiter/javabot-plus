@@ -1,6 +1,7 @@
 import "./globals.css";
 import NavBar from "../components/NavBar";
 import { ReactNode } from "react";
+import { SessionProvider } from "../lib/auth";
 
 export const metadata = {
   title: "Javabot Plus",
@@ -9,11 +10,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className="pt-24 h-screen">
-        <NavBar />
-        {children}
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body className="pt-24 h-screen">
+          <NavBar />
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
