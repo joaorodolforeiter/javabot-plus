@@ -41,7 +41,7 @@ export default function NavBar() {
           </div>
           <div className="flex justify-center items-center gap-3">
             {session.data?.user ? (
-              <>
+              <Link href="/animals/meus">
                 <div>{session.data?.user?.name}</div>
                 <Image
                   className="w-10 rounded-full"
@@ -50,7 +50,7 @@ export default function NavBar() {
                   src={session.data?.user?.image || ""}
                   alt="Account Photo"
                 />
-              </>
+              </Link>
             ) : (
               <button
                 className="bg-slate-300 flex justify-center items-center shadow-md p-2 rounded-md"
