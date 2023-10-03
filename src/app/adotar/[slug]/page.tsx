@@ -1,8 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import { redirect } from "next/navigation";
 import { prisma } from "../../../lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../lib/authOptions";
 
 export default async function Page({ params }: { params: { slug: string } }) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    redirect("/");
+  }
+
   const animal = await prisma.animal.findFirst({
     where: { id: Number(params.slug) },
   });
@@ -10,10 +18,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
   async function handleSubmit(formData: FormData) {
     "use server";
 
-    const user = await prisma.usuario.create({
+    const sessionEmail = session?.user?.email!;
+
+    await prisma.user.update({
+      where: {
+        email: sessionEmail,
+      },
       data: {
-        nome: String(formData.get("nome")),
-        email: String(formData.get("email")),
         endereco: String(formData.get("endereco")),
         telefone: String(formData.get("telefone")),
         cpf: String(formData.get("cpf")),
@@ -27,7 +38,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         },
       },
     });
-    console.log(user);
+    redirect("/animals/meus");
   }
 
   if (!animal) {
@@ -61,24 +72,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 Informações Pessoais
               </div>
 
-              <label htmlFor="nome">Nome</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="Nome..."
-                type="text"
-                name="nome"
-                id="nome"
-                required
-              />
-              <label htmlFor="email">Email</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="Email..."
-                type="email"
-                name="email"
-                id="email"
-                required
-              />
               <label htmlFor="endereco">Endereço</label>
               <input
                 className="mb-3 shadow-md rounded-md p-2"
