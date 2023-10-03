@@ -40,7 +40,7 @@ export default function NavBar() {
             </Link>
           </div>
           <div className="flex justify-center items-center gap-3">
-            {session ? (
+            {session.data?.user ? (
               <>
                 <div>{session.data?.user?.name}</div>
                 <Image
