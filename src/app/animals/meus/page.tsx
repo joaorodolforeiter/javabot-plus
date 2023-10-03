@@ -9,19 +9,19 @@ export default async function Page() {
 
   const user = await prisma.user.findUnique({
     where: {
-      email: session?.user?.email! ,
+      email: session?.user?.email!,
     },
     include: {
-      adocoes: true
+      adocoes: true,
     },
   });
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col m-3 items-center gap-3">
       {user?.adocoes.map((adocao) => (
         <div
           key={String(adocao.id)}
-          className="flex bg-slate-200 p-3 gap-3 shadow-md rounded-md"
+          className="flex max-w-sm w-full bg-slate-200 p-3 gap-3 shadow-md rounded-md"
         >
           <Image
             className="object-cover rounded-md shadow-md aspect-square w-28"
