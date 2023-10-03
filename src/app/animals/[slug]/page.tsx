@@ -6,9 +6,7 @@ import { prisma } from "../../../lib/prisma";
 export default async function Page({ params }: { params: { slug: string } }) {
   const animal = await prisma.animal.findFirst({
     where: { id: Number(params.slug) },
-    include: {
-      adocoes: { include: { usuario: true } },
-    },
+    include: { usuario: true },
   });
 
   if (!animal) {
@@ -32,7 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <div>{animal.descricao}</div>
             <div>
-              {animal.adocoes.length == 0 ? (
+              {animal.usuario ? (
                 <Link
                   href={`/adotar/${animal.id}`}
                   className="max-sm:flex max-sm:w-full max-sm:justify-center text-lg bg-green-200 hover:bg-green-300 transition-all p-3 rounded-lg shadow-md"
