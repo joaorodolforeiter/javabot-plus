@@ -7,20 +7,20 @@ import Image from "next/image";
 export default async function Page() {
   const session = await getServerSession(authOptions);
 
-  const adocoes = await prisma.adocao.findMany({
+  const user = await prisma.user.findUnique({
     where: {
-      usuario: { email: session?.user?.email },
+      email: session?.user?.email! ,
     },
     include: {
-      animal: true,
+      adocoes: true
     },
   });
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {adocoes.map((adocao) => (
+      {user?.adocoes.map((adocao) => (
         <div
-          key={String(adocao.dataAdocao)}
+          key={String(adocao.id)}
           className="flex bg-slate-200 p-3 gap-3 shadow-md rounded-md"
         >
           <Image
@@ -28,12 +28,11 @@ export default async function Page() {
             height={200}
             width={200}
             alt="Imagem do animal"
-            src={adocao.animal.imagemURL}
+            src={adocao.imagemURL}
           />
           <div>
-            <div className="text-xl">{adocao.animal.nome}</div>
-            <div>{String(adocao.dataAdocao)}</div>
-            <div>{adocao.animal.especie}</div>
+            <div className="text-xl">{adocao.nome}</div>
+            <div>{adocao.especie}</div>
           </div>
         </div>
       ))}
