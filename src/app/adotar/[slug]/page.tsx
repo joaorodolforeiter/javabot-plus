@@ -8,7 +8,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {
-    redirect("/");
+    redirect("/api/auth/signin");
   }
 
   const animal = await prisma.animal.findFirst({
