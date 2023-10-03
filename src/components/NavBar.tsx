@@ -41,7 +41,10 @@ export default function NavBar() {
           </div>
           <div className="flex justify-center items-center gap-3">
             {session.data?.user ? (
-              <Link href="/animals/meus">
+              <Link
+                className="flex justify-center items-center gap-3"
+                href="/animals/meus"
+              >
                 <div>{session.data?.user?.name}</div>
                 <Image
                   className="w-10 rounded-full"
