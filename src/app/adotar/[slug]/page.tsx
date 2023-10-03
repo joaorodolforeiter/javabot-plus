@@ -33,8 +33,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
         ).toISOString(),
         adocoes: {
           create: {
-            animalId: Number(params.slug),
-          },
+            animalId:animal?.id!
+          }
         },
       },
     });
