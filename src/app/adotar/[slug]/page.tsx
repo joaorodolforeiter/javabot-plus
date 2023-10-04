@@ -95,6 +95,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 type="text"
                 name="cpf"
                 id="cpf"
+                pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
                 required
               />
               <label htmlFor="data-nascimento">Data de nascimento</label>

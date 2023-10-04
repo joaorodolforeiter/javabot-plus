@@ -1,7 +1,15 @@
 import { redirect } from "next/navigation";
 import { prisma } from "../../../lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../../lib/authOptions";
 
-export default function page() {
+export default async function page() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    redirect("/api/auth/signin");
+  }
+
   async function handleSubmit(formData: FormData) {
     "use server";
     console.log(formData.get("ImagemURL"));
@@ -54,6 +62,8 @@ export default function page() {
           name="idade"
           id="idade"
           placeholder="Idade do animal..."
+          max={500}
+          min={0}
           required
         />
         <label className="mt-2" htmlFor="descricao">
