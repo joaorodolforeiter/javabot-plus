@@ -1,5 +1,5 @@
-import AnimalCard from "../../components/AnimalCard";
-import { prisma } from "../../lib/prisma";
+import AnimalCard from "@/src/components/AnimalCard";
+import { prisma } from "@/src/lib/prisma";
 
 export const revalidate = 3600;
 

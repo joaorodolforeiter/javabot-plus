@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
-import { prisma } from "../../../lib/prisma";
-import { authOptions } from "../../../lib/authOptions";
-import { redirect } from "next/navigation";
+import { prisma } from "@/src/lib/prisma";
+import { authOptions } from "@/src/lib/authOptions";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,7 +19,8 @@ export default async function Page() {
   return (
     <div className="flex flex-col m-3 items-center gap-3">
       {user?.adocoes.map((adocao) => (
-        <Link href={`/animals/${adocao.id}`}
+        <Link
+          href={`/animals/${adocao.id}`}
           key={String(adocao.id)}
           className="flex max-w-sm w-full bg-slate-200 p-3 gap-3 shadow-md rounded-md"
         >

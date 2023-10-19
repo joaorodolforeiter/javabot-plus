@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "@/src/lib/prisma";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const animal = await prisma.animal.findFirst({
