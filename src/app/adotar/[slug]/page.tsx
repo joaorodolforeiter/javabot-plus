@@ -26,17 +26,22 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
     const sessionEmail = session?.user?.email!;
 
+    let date;
+
+    if (formData.get("data-nascimento")) {
+      date =
+        new Date(String(formData.get("data-nascimento"))).toISOString() || null;
+    }
+
     await prisma.user.update({
       where: {
         email: sessionEmail,
       },
       data: {
-        endereco: String(formData.get("endereco")),
-        telefone: String(formData.get("telefone")),
-        cpf: String(formData.get("cpf")),
-        dataNascimento: new Date(
-          String(formData.get("data-nascimento"))
-        ).toISOString(),
+        endereco: String(formData.get("endereco")) || undefined,
+        telefone: String(formData.get("telefone")) || undefined,
+        cpf: String(formData.get("cpf")) || undefined,
+        dataNascimento: date || undefined,
         adocoes: {
           connect: [animal!],
         },
