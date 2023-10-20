@@ -38,10 +38,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
         email: sessionEmail,
       },
       data: {
-        endereco: String(formData.get("endereco")) || undefined,
-        telefone: String(formData.get("telefone")) || undefined,
-        cpf: String(formData.get("cpf")) || undefined,
-        dataNascimento: date || undefined,
+        endereco: String(formData.get("endereco"))
+          ? String(formData.get("endereco"))
+          : undefined,
+        telefone: String(formData.get("telefone"))
+          ? String(formData.get("telefone"))
+          : undefined,
+        cpf: String(formData.get("cpf"))
+          ? String(formData.get("cpf"))
+          : undefined,
+        dataNascimento: date ? date : undefined,
         adocoes: {
           connect: [animal!],
         },
