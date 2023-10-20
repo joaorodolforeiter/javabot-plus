@@ -11,6 +11,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
     redirect("/api/auth/signin");
   }
 
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session.user.email!,
+    },
+  });
+
   const animal = await prisma.animal.findFirst({
     where: { id: Number(params.slug) },
   });
@@ -64,49 +70,60 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <form
               action={handleSubmit}
-              className="flex flex-col bg-slate-200 p-6 rounded-lg shadow-md"
+              className="flex flex-col bg-slate-200 p-6 gap-4 rounded-lg shadow-md"
             >
-              <div className="text-xl mb-6 font-semibold">
-                Informações Pessoais
-              </div>
+              <div className="text-xl font-semibold">Informações Pessoais</div>
 
-              <label htmlFor="endereco">Endereço</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="Endereço..."
-                type="text"
-                name="endereco"
-                id="endereco"
-                required
-              />
-              <label htmlFor="telefone">Telefone</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="Telefone..."
-                type="tel"
-                name="telefone"
-                id="telefone"
-                required
-              />
-              <label htmlFor="cpf">CPF</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="CPF..."
-                type="text"
-                name="cpf"
-                id="cpf"
-                pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
-                required
-              />
-              <label htmlFor="data-nascimento">Data de nascimento</label>
-              <input
-                className="mb-3 shadow-md rounded-md p-2"
-                placeholder="Data de nascimento..."
-                type="date"
-                name="data-nascimento"
-                id="data-nascimento"
-                required
-              />
+              {!user?.endereco && (
+                <label className="flex flex-col">
+                  Endereço
+                  <input
+                    className="shadow-md rounded-md p-2"
+                    placeholder="Endereço..."
+                    type="text"
+                    name="endereco"
+                    required
+                  />
+                </label>
+              )}
+              {!user?.telefone && (
+                <label className="flex flex-col">
+                  Telefone
+                  <input
+                    className="shadow-md rounded-md p-2"
+                    placeholder="Telefone..."
+                    type="tel"
+                    name="telefone"
+                    required
+                  />
+                </label>
+              )}
+              {!user?.cpf && (
+                <label className="flex flex-col">
+                  CPF
+                  <input
+                    className="shadow-md rounded-md p-2"
+                    placeholder="CPF..."
+                    type="text"
+                    name="cpf"
+                    pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
+                    required
+                  />
+                </label>
+              )}
+              {!user?.dataNascimento && (
+                <label className="flex flex-col">
+                  Data de nascimento
+                  <input
+                    className="shadow-md rounded-md p-2"
+                    placeholder="Data de nascimento..."
+                    type="date"
+                    name="data-nascimento"
+                    required
+                  />
+                </label>
+              )}
+
               <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg transition-all p-3 mt-2 shadow-md rounded-md">
                 Enviar Solicitação
               </button>
