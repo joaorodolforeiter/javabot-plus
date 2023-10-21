@@ -23,6 +23,15 @@ model Animal {
   @@index([usuarioId])
 }
 
+model Product {
+  id        Int    @id @default(autoincrement())
+  nome      String
+  marca     String
+  preco     Float
+  descricao String
+  imagemURL String
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String

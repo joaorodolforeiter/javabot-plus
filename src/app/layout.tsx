@@ -12,9 +12,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <html lang="en">
-        <body className="pt-24 h-screen">
+        <body className="pt-24 h-screen flex flex-col items-center">
           <NavBar />
-          {children}
+          <div className="container">{children}</div>
         </body>
       </html>
     </SessionProvider>

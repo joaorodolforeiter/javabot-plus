@@ -59,86 +59,80 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="flex  justify-center">
-      <div className="container">
-        <div className="flex max-md:flex-col justify-center gap-16">
-          <div className="m-8 space-y-6">
-            <img
-              className="sm:max-w-sm aspect-square object-cover shadow-md rounded-lg"
-              src={animal.imagemURL}
-              alt=""
-            />
-            <div className="text-4xl">{animal.nome}</div>
-            <div className="text-lg">
-              {animal.especie}, {animal.idade} ano{animal.idade !== 1 && "s"}
-            </div>
-          </div>
-          <div>
-            <div className="text-3xl p-12 text-center">
-              Formulario de Adoção
-            </div>
-            <form
-              action={handleSubmit}
-              className="flex flex-col bg-slate-200 p-6 gap-4 rounded-lg shadow-md"
-            >
-              <div className="text-xl font-semibold">Informações Pessoais</div>
-
-              {!user?.endereco && (
-                <label className="flex flex-col">
-                  Endereço
-                  <input
-                    className="shadow-md rounded-md p-2"
-                    placeholder="Endereço..."
-                    type="text"
-                    name="endereco"
-                    required
-                  />
-                </label>
-              )}
-              {!user?.telefone && (
-                <label className="flex flex-col">
-                  Telefone
-                  <input
-                    className="shadow-md rounded-md p-2"
-                    placeholder="Telefone..."
-                    type="tel"
-                    name="telefone"
-                    required
-                  />
-                </label>
-              )}
-              {!user?.cpf && (
-                <label className="flex flex-col">
-                  CPF
-                  <input
-                    className="shadow-md rounded-md p-2"
-                    placeholder="CPF..."
-                    type="text"
-                    name="cpf"
-                    pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
-                    required
-                  />
-                </label>
-              )}
-              {!user?.dataNascimento && (
-                <label className="flex flex-col">
-                  Data de nascimento
-                  <input
-                    className="shadow-md rounded-md p-2"
-                    placeholder="Data de nascimento..."
-                    type="date"
-                    name="data-nascimento"
-                    required
-                  />
-                </label>
-              )}
-
-              <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg transition-all p-3 mt-2 shadow-md rounded-md">
-                Enviar Solicitação
-              </button>
-            </form>
-          </div>
+    <div className="flex max-md:flex-col justify-center gap-16">
+      <div className="m-8 space-y-6">
+        <img
+          className="sm:max-w-sm aspect-square object-cover shadow-md rounded-lg"
+          src={animal.imagemURL}
+          alt=""
+        />
+        <div className="text-4xl">{animal.nome}</div>
+        <div className="text-lg">
+          {animal.especie}, {animal.idade} ano{animal.idade !== 1 && "s"}
         </div>
+      </div>
+      <div>
+        <div className="text-3xl p-12 text-center">Formulario de Adoção</div>
+        <form
+          action={handleSubmit}
+          className="flex flex-col bg-slate-200 p-6 gap-4 rounded-lg shadow-md"
+        >
+          <div className="text-xl font-semibold">Informações Pessoais</div>
+
+          {!user?.endereco && (
+            <label className="flex flex-col">
+              Endereço
+              <input
+                className="shadow-md rounded-md p-2"
+                placeholder="Endereço..."
+                type="text"
+                name="endereco"
+                required
+              />
+            </label>
+          )}
+          {!user?.telefone && (
+            <label className="flex flex-col">
+              Telefone
+              <input
+                className="shadow-md rounded-md p-2"
+                placeholder="Telefone..."
+                type="tel"
+                name="telefone"
+                required
+              />
+            </label>
+          )}
+          {!user?.cpf && (
+            <label className="flex flex-col">
+              CPF
+              <input
+                className="shadow-md rounded-md p-2"
+                placeholder="CPF..."
+                type="text"
+                name="cpf"
+                pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
+                required
+              />
+            </label>
+          )}
+          {!user?.dataNascimento && (
+            <label className="flex flex-col">
+              Data de nascimento
+              <input
+                className="shadow-md rounded-md p-2"
+                placeholder="Data de nascimento..."
+                type="date"
+                name="data-nascimento"
+                required
+              />
+            </label>
+          )}
+
+          <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg transition-all p-3 mt-2 shadow-md rounded-md">
+            Enviar Solicitação
+          </button>
+        </form>
       </div>
     </div>
   );
