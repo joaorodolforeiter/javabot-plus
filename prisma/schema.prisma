@@ -20,6 +20,27 @@ model Order {
   @@index([userId])
 }
 
+model ShoppingCart {
+  id     Int                @id @default(autoincrement())
+  userId String
+  user   User               @relation(fields: [userId], references: [id])
+  items  ShoppingCartItem[]
+
+  @@unique([userId])
+}
+
+model ShoppingCartItem {
+  id             Int          @id @default(autoincrement())
+  productId      Int
+  product        Product      @relation(fields: [productId], references: [id])
+  quantity       Int
+  shoppingCartId Int
+  shoppingCart   ShoppingCart @relation(fields: [shoppingCartId], references: [id])
+
+  @@index([shoppingCartId])
+  @@index([productId])
+}
+
 model OrderItem {
   id         Int     @id @default(autoincrement())
   quantity   Int
@@ -56,8 +77,9 @@ model Product {
   descricao String
   imagemURL String
 
-  stock      Int         @default(dbgenerated("0"))
-  orderItems OrderItem[]
+  stock            Int                @default(dbgenerated("0"))
+  orderItems       OrderItem[]
+  ShoppingCartItem ShoppingCartItem[]
 }
 
 model Account {
@@ -99,12 +121,13 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  cpf            String?   @unique
+  cpf            String?       @unique
   dataNascimento DateTime?
   endereco       String?
   telefone       String?
   adocoes        Animal[]
-  orders         Order[] // A user can have multiple orders
+  orders         Order[]
+  shoppingCart   ShoppingCart? // A user can have one shopping cart
 }
 
 model VerificationToken {
