@@ -8,6 +8,31 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Order {
+  id          Int         @id @default(autoincrement())
+  orderNumber String
+  totalAmount Float
+  status      String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  orderItems  OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  quantity   Int
+  totalPrice Float
+  product    Product @relation(fields: [productId], references: [id])
+  productId  Int
+  order      Order   @relation(fields: [orderId], references: [id])
+  orderId    Int
+
+  @@index([productId])
+  @@index([orderId])
+}
+
 model Animal {
   id         Int     @id @default(autoincrement())
   nome       String
@@ -30,6 +55,9 @@ model Product {
   preco     Float
   descricao String
   imagemURL String
+
+  stock      Int         @default(dbgenerated("0"))
+  orderItems OrderItem[]
 }
 
 model Account {
@@ -76,6 +104,7 @@ model User {
   endereco       String?
   telefone       String?
   adocoes        Animal[]
+  orders         Order[] // A user can have multiple orders
 }
 
 model VerificationToken {
