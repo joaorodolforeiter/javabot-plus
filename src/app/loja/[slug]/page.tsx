@@ -7,21 +7,45 @@ import { authOptions } from "@/src/lib/authOptions";
 export default async function Page({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
 
+  const productId = Number(params.slug);
+
   const product = await prisma.product.findFirst({
-    where: { id: Number(params.slug) },
+    where: { id: productId },
   });
 
   if (!product) {
     redirect("/loja");
   }
 
-  async function handleAddtoCart() {
+  async function handleAddtoCart(formData: FormData) {
     "use server";
+
+    const quantity = Number(formData.get("quantity"));
+
     const user = await prisma.user.findUnique({
       where: {
         email: session?.user?.email!,
       },
     });
+
+    const shoppingCart = await prisma.shoppingCart.upsert({
+      where: { userId: user!.id },
+      update: {},
+      create: {
+        userId: user!.id,
+      },
+    });
+
+    // Create a new shopping cart item
+    const newShoppingCartItem = await prisma.shoppingCartItem.create({
+      data: {
+        productId,
+        quantity,
+        shoppingCartId: shoppingCart.id,
+      },
+    });
+
+    redirect("/cart");
   }
 
   return (
@@ -39,12 +63,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <div className="text-3xl">{product.nome}</div>
           <div className="text-2xl">{product.descricao}</div>
           <div>R${product.preco}</div>
-          <button
-            onClick={handleAddtoCart}
-            className="bg-emerald-200 shadow-md rounded-md p-3"
-          >
-            Adicionar ao carrinho
-          </button>
+          <form className="flex flex-col gap-3" action={handleAddtoCart}>
+            <select
+              className="w-16 p-2 bg-slate-50 text-black shadow-md rounded-md"
+              name="quantity"
+              defaultValue={"1"}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10+</option>
+            </select>
+            <button className="bg-emerald-200 shadow-md rounded-md p-3">
+              Adicionar ao carrinho
+            </button>
+          </form>
         </div>
       </div>
     </div>
