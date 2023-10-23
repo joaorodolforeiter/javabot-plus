@@ -77,9 +77,20 @@ model Product {
   descricao String
   imagemURL String
 
+  category   ProductCategory @relation(fields: [id], references: [productId])
+  categoryId Int
+
   stock            Int                @default(dbgenerated("0"))
   orderItems       OrderItem[]
   ShoppingCartItem ShoppingCartItem[]
+
+  @@index([id])
+}
+
+model ProductCategory {
+  productId Int       @id @default(autoincrement())
+  name      String
+  Product   Product[]
 }
 
 model Account {
