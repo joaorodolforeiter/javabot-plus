@@ -77,8 +77,8 @@ model Product {
   descricao String
   imagemURL String
 
-  category   ProductCategory @relation(fields: [id], references: [productId])
-  categoryId Int
+  category   ProductCategory? @relation(fields: [id], references: [productId])
+  categoryId Int?
 
   stock            Int                @default(dbgenerated("0"))
   orderItems       OrderItem[]
