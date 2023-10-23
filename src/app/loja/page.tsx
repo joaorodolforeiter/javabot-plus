@@ -8,7 +8,7 @@ export default async function Loja() {
   return (
     <div className="flex items-center flex-col">
       <h1 className="text-4xl mt-4">Produtos compraveis</h1>
-      <div className="p-14 flex flex-wrap gap-6">
+      <div className="p-14 flex justify-center flex-wrap gap-6">
         {products.map((product) => (
           <ProductCard
             key={product.id}

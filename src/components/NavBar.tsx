@@ -5,6 +5,14 @@ import { List, PawPrint } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,14 +20,14 @@ export default function NavBar() {
   const session = useSession();
 
   return (
-    <nav className="top-0 fixed w-screen bg-slate-200 shadow-md">
+    <nav className="top-0 fixed w-screen bg-slate-100 shadow-sm">
       <div className="h-16 flex justify-between items-center px-8">
         <div className="font-bold text-xl flex gap-3 items-center">
           <PawPrint size={32} weight="fill" /> Javabot Plus
         </div>
 
         <div className="flex justify-center items-center gap-6">
-          <div className="gap-3 sm:flex divide-x-2 hidden">
+          <div className="gap-3 sm:flex hidden">
             <Link
               className="rounded-lg hover:bg-slate-300 p-2 transition-all"
               href="/"
@@ -41,19 +49,36 @@ export default function NavBar() {
           </div>
           <div className="flex justify-center items-center gap-3">
             {session.data?.user ? (
-              <Link
-                className="flex justify-center items-center gap-3"
-                href="/animals/meus"
-              >
-                <div>{session.data?.user?.name}</div>
-                <Image
-                  className="w-10 rounded-full"
-                  width={128}
-                  height={128}
-                  src={session.data?.user?.image || ""}
-                  alt="Account Photo"
-                />
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Image
+                    className="w-10 rounded-full"
+                    width={128}
+                    height={128}
+                    src={session.data?.user?.image || ""}
+                    alt="Account Photo"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/animals/meus">Meus Animais</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/cart">Carrinho</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    {" "}
+                    <button
+                      className="bg-red-400 w-full text-white flex justify-center items-center shadow-md p-2 rounded-md"
+                      onClick={() => signOut()}
+                    >
+                      Sair
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <button
                 className="bg-slate-300 flex justify-center items-center shadow-md p-2 rounded-md"

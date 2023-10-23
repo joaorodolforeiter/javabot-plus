@@ -3,6 +3,7 @@ import { prisma } from "@/src/lib/prisma";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/src/lib/authOptions";
+import Link from "next/link";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const session = await getServerSession(authOptions);
@@ -16,6 +17,21 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!product) {
     redirect("/loja");
   }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session?.user?.email!,
+    },
+  });
+
+  const shoppingCart = await prisma.shoppingCart.upsert({
+    where: { userId: user!.id },
+    update: {},
+    create: {
+      userId: user!.id,
+    },
+    include: { items: { include: { product: true } } },
+  });
 
   async function handleAddtoCart(formData: FormData) {
     "use server";
@@ -80,9 +96,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <option value="9">9</option>
               <option value="10">10+</option>
             </select>
-            <button className="bg-emerald-200 shadow-md rounded-md p-3">
-              Adicionar ao carrinho
-            </button>
+            {shoppingCart.items.some((item) => item.product.id == productId) ? (
+              <Link
+                className="bg-yellow-50 w-fit shadow-md rounded-md p-3"
+                href="/cart"
+              >
+                Ver no carrinho
+              </Link>
+            ) : (
+              <button className="bg-emerald-200 shadow-md rounded-md p-3">
+                Adicionar ao carrinho
+              </button>
+            )}
           </form>
         </div>
       </div>
