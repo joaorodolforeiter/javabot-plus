@@ -22,9 +22,9 @@ export default function NavBar() {
   return (
     <nav className="top-0 fixed w-screen bg-slate-100 shadow-sm">
       <div className="h-16 flex justify-between items-center px-8">
-        <div className="font-bold text-xl flex gap-3 items-center">
+        <Link href={"/"} className="font-bold text-xl flex gap-3 items-center">
           <PawPrint size={32} weight="fill" /> Javabot Plus
-        </div>
+        </Link>
 
         <div className="flex justify-center items-center gap-6">
           <div className="gap-3 sm:flex hidden">
