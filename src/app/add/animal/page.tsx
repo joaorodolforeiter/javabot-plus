@@ -39,6 +39,7 @@ export default async function page() {
               name="nome"
               id="nome"
               placeholder="Nome do animal..."
+              maxLength={150}
               required
             />
           </div>
@@ -49,6 +50,7 @@ export default async function page() {
               name="especie"
               id="especie"
               placeholder="Especie do animal..."
+              maxLength={150}
               required
             />
           </div>
@@ -75,6 +77,7 @@ export default async function page() {
           name="descricao"
           id="descricao"
           placeholder="Descrição do animal..."
+          maxLength={150}
           required
         ></textarea>
         <label className="mt-2" htmlFor="imagemURL">
@@ -85,6 +88,7 @@ export default async function page() {
           name="imagemURL"
           id="imagemURL"
           placeholder="Url da Imagem..."
+          maxLength={150}
           required
         />
         <button
