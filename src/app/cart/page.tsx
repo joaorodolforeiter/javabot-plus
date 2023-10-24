@@ -26,7 +26,7 @@ export default async function page() {
   return (
     <div className="flex flex-col">
       <div className="text-2xl mb-16">Meu Carrinho de Compras</div>
-      <div className="flex justify-between gap-3">
+      <div className="flex justify-between gap-8">
         <div className="flex flex-col gap-3">
           {items.map((item) => (
             <CartItem

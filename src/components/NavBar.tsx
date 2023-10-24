@@ -52,7 +52,7 @@ export default function NavBar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Image
-                    className="w-10 rounded-full"
+                    className="w-10 rounded-full bg-white"
                     width={128}
                     height={128}
                     src={session.data?.user?.image || ""}
@@ -69,7 +69,6 @@ export default function NavBar() {
                     <Link href="/cart">Carrinho</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    {" "}
                     <button
                       className="bg-red-400 w-full text-white flex justify-center items-center shadow-md p-2 rounded-md"
                       onClick={() => signOut()}
@@ -96,6 +95,18 @@ export default function NavBar() {
             </button>
           </div>
         </div>
+      </div>
+      <div className="max-lg:hidden flex gap-6 p-3 bg-slate-200 px-8 shadow-sm">
+        <div>Barata</div>
+        <div>Gato</div>
+        <div>Aves</div>
+        <div>Cachorro</div>
+        <div>Barata</div>
+        <div>Besouro</div>
+        <div>Brinquedos</div>
+        <div>Higiene</div>
+        <div>Acessórios</div>
+        <div>Calopsita</div>
       </div>
       <div
         className={`${

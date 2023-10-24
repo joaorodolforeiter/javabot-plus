@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           height={400}
           alt=""
         />
-        <div className="bg-slate-100 rounded-md shadow-sm p-6 flex flex-col gap-3">
+        <div className="bg-slate-100 rounded-md shadow-sm p-10 flex flex-col gap-3">
           <div className="text-lg">{product.marca}</div>
           <div className="text-3xl">{product.nome}</div>
           <div className="text-2xl">{product.descricao}</div>

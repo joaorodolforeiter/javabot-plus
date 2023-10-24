@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <html lang="en">
-        <body className="pt-24 h-screen flex flex-col items-center">
+        <body className="pt-36 h-screen flex flex-col items-center">
           <NavBar />
           <div className="container">{children}</div>
         </body>
