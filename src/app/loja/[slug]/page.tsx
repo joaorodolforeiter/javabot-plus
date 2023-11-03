@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     redirect("/loja");
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: {
       email: session?.user?.email!,
     },
@@ -96,17 +96,28 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <option value="9">9</option>
               <option value="10">10+</option>
             </select>
-            {shoppingCart.items.some((item) => item.product.id == productId) ? (
-              <Link
-                className="bg-yellow-50 w-fit shadow-md rounded-md p-3"
-                href="/cart"
-              >
-                Ver no carrinho
-              </Link>
+            {session?.user ? (
+              shoppingCart.items.some(
+                (item) => item.product.id == productId
+              ) ? (
+                <Link
+                  className="bg-yellow-50 w-fit shadow-md rounded-md p-3"
+                  href="/cart"
+                >
+                  Ver no carrinho
+                </Link>
+              ) : (
+                <button className="bg-emerald-200 shadow-md rounded-md p-3">
+                  Adicionar ao carrinho
+                </button>
+              )
             ) : (
-              <button className="bg-emerald-200 shadow-md rounded-md p-3">
+              <Link
+                href="/api/auth/signin"
+                className="bg-emerald-200 w-fit shadow-md rounded-md p-3"
+              >
                 Adicionar ao carrinho
-              </button>
+              </Link>
             )}
           </form>
         </div>
