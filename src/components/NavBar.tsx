@@ -101,7 +101,6 @@ export default function NavBar() {
         <div>Gato</div>
         <div>Aves</div>
         <div>Cachorro</div>
-        <div>Barata</div>
         <div>Besouro</div>
         <div>Brinquedos</div>
         <div>Higiene</div>

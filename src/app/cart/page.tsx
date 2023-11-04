@@ -49,7 +49,7 @@ export default async function page() {
           </div>
           <Link
             className="p-3 shadow-md rounded-md bg-yellow-100 text-center"
-            href={"/"}
+            href={"/loja/checkout"}
           >
             Checkout
           </Link>
