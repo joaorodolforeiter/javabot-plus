@@ -22,17 +22,10 @@ export default async function page() {
 
   return (
     <div className="flex gap-6 justify-between">
-      <div className="w-full max-w-screen-sm">
+      <div className="w-full max-w-screen-sm space-y-4">
         <h2 className="text-2xl mb-8">Checkout</h2>
         <div className="text-1xl mb-4">Endereço</div>
         <div className="flex flex-col bg-slate-100 rounded-md shadow-sm gap-3 p-6">
-          <input
-            className="p-2 shadow-sm rounded-md"
-            type="text"
-            name=""
-            id=""
-            placeholder="País"
-          />
           <div className="w-full flex justify-between gap-3">
             <input
               className="w-full p-2 shadow-sm rounded-md"
@@ -86,12 +79,37 @@ export default async function page() {
               placeholder="CEP"
             />
           </div>
+        </div>
+        <div className="flex flex-col bg-slate-100 rounded-md shadow-sm gap-3 p-6">
           <input
             className="p-2 shadow-sm rounded-md"
             type="text"
             name=""
             id=""
-            placeholder="Telefone"
+            placeholder="Numero do Cartão"
+          />
+          <div className="w-full flex justify-between gap-3">
+            <input
+              className="w-full p-2 shadow-sm rounded-md"
+              type="text"
+              name=""
+              id=""
+              placeholder="CVC"
+            />
+            <input
+              className="w-full p-2 shadow-sm rounded-md"
+              type="date"
+              name=""
+              id=""
+              placeholder="Validade"
+            />
+          </div>
+          <input
+            className="p-2 shadow-sm rounded-md"
+            type="text"
+            name=""
+            id=""
+            placeholder="Titular do cartão"
           />
         </div>
       </div>
