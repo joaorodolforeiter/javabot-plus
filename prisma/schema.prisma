@@ -10,7 +10,7 @@ generator client {
 
 model Order {
   id          Int         @id @default(autoincrement())
-  orderNumber String
+  orderNumber String      @default(uuid())
   totalAmount Float
   status      String
   user        User        @relation(fields: [userId], references: [id])

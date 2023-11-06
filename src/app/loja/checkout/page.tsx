@@ -1,7 +1,6 @@
 import { authOptions } from "@/src/lib/authOptions";
 import { prisma } from "@/src/lib/prisma";
 import { Product } from "@prisma/client";
-import { randomUUID } from "crypto";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -22,16 +21,29 @@ export default async function page() {
   });
   const items = user?.shoppingCart?.items!;
 
-  async function handleSubmit() {
+  async function handleSubmit(formData: FormData) {
+    "use server";
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session!.user!.email!,
+      },
+      include: {
+        shoppingCart: { include: { items: { include: { product: true } } } },
+      },
+    });
+    const items = user?.shoppingCart?.items!;
+
     await prisma.order.create({
       data: {
         userId: user!.id,
-        orderNumber: randomUUID(),
         status: "Pendente",
-        totalAmount: 2,
+        totalAmount: items.reduce(
+          (acc, item) => acc + item.quantity * item.product.preco,
+          0
+        ),
         orderItems: {
           createMany: {
-            data: user!.shoppingCart!.items!.map((item) => {
+            data: items!.map((item) => {
               return {
                 productId: item.id,
                 quantity: item.quantity,
@@ -42,11 +54,16 @@ export default async function page() {
         },
       },
     });
+    await prisma.shoppingCartItem.deleteMany({
+      where: {
+        shoppingCartId: user?.shoppingCart?.id,
+      },
+    });
   }
 
   return (
     <div className="flex gap-6 justify-between">
-      <div className="w-full max-w-screen-sm space-y-4">
+      <form action={handleSubmit} className="w-full max-w-screen-sm space-y-4">
         <h2 className="text-2xl mb-8">Checkout</h2>
         <div className="text-1xl mb-4">Endereço</div>
         <div className="flex flex-col bg-slate-100 rounded-md shadow-sm gap-3 p-6">
@@ -135,8 +152,9 @@ export default async function page() {
             id=""
             placeholder="Titular do cartão"
           />
+          <button>Enviar</button>
         </div>
-      </div>
+      </form>
       <div className="flex flex-col divide-y divide-slate-200">
         {items.map((item) => (
           <CartItem

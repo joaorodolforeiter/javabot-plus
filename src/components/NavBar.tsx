@@ -69,6 +69,9 @@ export default function NavBar() {
                     <Link href="/cart">Carrinho</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
+                    <Link href="/loja/compras">Michas Compras</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
                     <button
                       className="bg-red-400 w-full text-white flex justify-center items-center shadow-md p-2 rounded-md"
                       onClick={() => signOut()}
