@@ -97,15 +97,14 @@ export default function NavBar() {
         </div>
       </div>
       <div className="max-lg:hidden flex gap-6 p-3 bg-slate-200 px-8 shadow-sm">
-        <div>Barata</div>
         <div>Gato</div>
         <div>Aves</div>
         <div>Cachorro</div>
-        <div>Besouro</div>
         <div>Brinquedos</div>
         <div>Higiene</div>
         <div>Acessórios</div>
         <div>Calopsita</div>
+        <div>Equipamentos</div>
       </div>
       <div
         className={`${
