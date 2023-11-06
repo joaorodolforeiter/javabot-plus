@@ -1,6 +1,7 @@
 import { authOptions } from "@/src/lib/authOptions";
 import { prisma } from "@/src/lib/prisma";
 import { Product } from "@prisma/client";
+import { randomUUID } from "crypto";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -10,6 +11,7 @@ export default async function page() {
   if (!session?.user) {
     redirect("/loja");
   }
+
   const user = await prisma.user.findUnique({
     where: {
       email: session.user.email!,
@@ -19,6 +21,28 @@ export default async function page() {
     },
   });
   const items = user?.shoppingCart?.items!;
+
+  async function handleSubmit() {
+    await prisma.order.create({
+      data: {
+        userId: user!.id,
+        orderNumber: randomUUID(),
+        status: "Pendente",
+        totalAmount: 2,
+        orderItems: {
+          createMany: {
+            data: user!.shoppingCart!.items!.map((item) => {
+              return {
+                productId: item.id,
+                quantity: item.quantity,
+                totalPrice: item.quantity * item.product.preco,
+              };
+            }),
+          },
+        },
+      },
+    });
+  }
 
   return (
     <div className="flex gap-6 justify-between">
