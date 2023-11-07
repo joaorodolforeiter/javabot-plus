@@ -10,12 +10,19 @@ export default async function page() {
         email: session?.user?.email,
       },
     },
+    include: {
+      orderItems: { include: { product: true } },
+    },
   });
+
+  console.log(orders);
+
   return (
     <div>
       {orders.map((order) => (
         <div key={order.id}>
-          {order.status} - R${order.totalAmount}
+          {order.status} - R${order.totalAmount} -{" "}
+          {order.orderItems.map((item) => item.product.nome).join(", ")}
         </div>
       ))}
     </div>

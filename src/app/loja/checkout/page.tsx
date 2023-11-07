@@ -45,7 +45,7 @@ export default async function page() {
           createMany: {
             data: items!.map((item) => {
               return {
-                productId: item.id,
+                productId: item.product.id,
                 quantity: item.quantity,
                 totalPrice: item.quantity * item.product.preco,
               };
