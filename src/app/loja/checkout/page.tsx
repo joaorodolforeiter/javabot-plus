@@ -59,7 +59,7 @@ export default async function page() {
         shoppingCartId: user?.shoppingCart?.id,
       },
     });
-    redirect("loja/compras");
+    redirect("/loja/compras");
   }
 
   return (
