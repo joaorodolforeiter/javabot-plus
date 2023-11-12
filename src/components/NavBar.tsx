@@ -69,7 +69,7 @@ export default function NavBar() {
                     <Link href="/cart">Carrinho</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/loja/compras">Michas Compras</Link>
+                    <Link href="/loja/compras">Minhas Compras</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <button
