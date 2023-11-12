@@ -75,6 +75,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="Nome"
+              required
             />
             <input
               className="w-full p-2 shadow-sm rounded-md"
@@ -82,6 +83,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="Sobrenome"
+              required
             />
           </div>
           <input
@@ -90,6 +92,7 @@ export default async function page() {
             name=""
             id=""
             placeholder="Endereço, número, apartamento"
+            required
           />
           <input
             className="p-2 shadow-sm rounded-md"
@@ -97,6 +100,7 @@ export default async function page() {
             name=""
             id=""
             placeholder="Bairro"
+            required
           />
           <div className="flex gap-3 justify-between">
             <input
@@ -105,6 +109,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="Cidade"
+              required
             />
             <input
               className="p-2 shadow-sm rounded-md w-full"
@@ -112,6 +117,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="Estado"
+              required
             />
             <input
               className="p-2 shadow-sm rounded-md w-full"
@@ -119,6 +125,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="CEP"
+              required
             />
           </div>
         </div>
@@ -129,6 +136,7 @@ export default async function page() {
             name=""
             id=""
             placeholder="Numero do Cartão"
+            required
           />
           <div className="w-full flex justify-between gap-3">
             <input
@@ -137,6 +145,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="CVC"
+              required
             />
             <input
               className="w-full p-2 shadow-sm rounded-md"
@@ -144,6 +153,7 @@ export default async function page() {
               name=""
               id=""
               placeholder="Validade"
+              required
             />
           </div>
           <input
@@ -152,11 +162,14 @@ export default async function page() {
             name=""
             id=""
             placeholder="Titular do cartão"
+            required
           />
-          <button>Enviar</button>
         </div>
+        <button className="bg-emerald-200 p-2 w-full rounded-md shadow-md">
+          Enviar
+        </button>
       </form>
-      <div className="flex flex-col divide-y divide-slate-200">
+      <div className="flex flex-col divide-y divide-slate-200 flex-1 p-12">
         {items.map((item) => (
           <CartItem
             key={item.id}

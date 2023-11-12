@@ -15,8 +15,6 @@ export default async function page() {
     },
   });
 
-  console.log(orders);
-
   return (
     <div>
       {orders.map((order) => (
