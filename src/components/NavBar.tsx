@@ -99,7 +99,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-      <div className="max-lg:hidden flex gap-6 p-3 bg-slate-200 px-8 shadow-sm">
+      <div className="max-lg:hidden flex gap-6 p-3 bg-slate-200 px-8 shadow-sm justify-center w-full">
         <div>Gato</div>
         <div>Aves</div>
         <div>Cachorro</div>
