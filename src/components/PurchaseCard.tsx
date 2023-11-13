@@ -19,7 +19,7 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
     <div
       className="bg-slate-200 shadow-sm rounded-md p-3 flex flex-col gap-3 justify-between max-w-xl"
       key={order.id}
-      onClick={() => setIsClosed(!isClosed)}
+      onClick={() => orderItems.length !== 1 && setIsClosed(!isClosed)}
     >
       <div className="pb-3 border-b border-slate-400">{order.status}</div>
       <div className="flex justify-between items-center">
@@ -39,15 +39,16 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
               }
             )}
           >
-            {orderItems[0].product.nome} <CaretUp size={24} weight="fill" />
+            {orderItems[0].product.nome}{" "}
+            {orderItems.length !== 1 && <CaretUp size={24} weight="fill" />}
           </div>
           <ul
-            className={cn("p-3 bg-slate-300 h-fit shadow-sm rounded-md", {
+            className={cn("p-2 bg-slate-300 h-fit shadow-sm rounded-md", {
               hidden: isClosed,
             })}
           >
-            {orderItems.map((item) => (
-              <li key={item.id}>{item.product.nome}</li>
+            {orderItems.map((item, index) => (
+              <li key={item.id}>{`${index + 1}. ${item.product.nome}`}</li>
             ))}
           </ul>
         </div>
