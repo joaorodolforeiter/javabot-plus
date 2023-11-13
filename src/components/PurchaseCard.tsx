@@ -13,6 +13,8 @@ type OrdersWithItems = Prisma.OrderGetPayload<{
 export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
   const [isClosed, setIsClosed] = useState(true);
 
+  const { orderItems } = order;
+
   return (
     <div
       className="bg-slate-200 shadow-sm rounded-md p-3 flex flex-col gap-3 justify-between max-w-xl"
@@ -24,7 +26,7 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
         <div className="flex gap-3">
           <Image
             className="rounded-md shadow-sm w-16 h-16 aspect-square object-cover bg-white"
-            src={order.orderItems[0].product.imagemURL}
+            src={orderItems[0].product.imagemURL}
             width={128}
             height={128}
             alt=""
@@ -37,15 +39,14 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
               }
             )}
           >
-            {order.orderItems[0].product.nome}{" "}
-            <CaretUp size={24} weight="fill" />
+            {orderItems[0].product.nome} <CaretUp size={24} weight="fill" />
           </div>
           <ul
             className={cn("p-3 bg-slate-300 h-fit shadow-sm rounded-md", {
               hidden: isClosed,
             })}
           >
-            {order.orderItems.map((item) => (
+            {orderItems.map((item) => (
               <li key={item.id}>{item.product.nome}</li>
             ))}
           </ul>
