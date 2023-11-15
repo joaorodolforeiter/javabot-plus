@@ -23,10 +23,6 @@ export default async function page() {
 
   const items = user?.shoppingCart?.items!;
 
-  if (items.length == 0) {
-    redirect("/loja");
-  }
-
   return (
     <div className="flex flex-col">
       <div className="text-2xl mb-16">Meu Carrinho de Compras</div>
