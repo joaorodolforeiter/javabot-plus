@@ -72,6 +72,9 @@ export default function NavBar() {
                     <Link href="/loja/compras">Minhas Compras</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
+                    <Link href="/admin">Administração</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
                     <button
                       className="bg-red-400 w-full text-white flex justify-center items-center shadow-md p-2 rounded-md"
                       onClick={() => signOut()}
