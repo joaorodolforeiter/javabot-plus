@@ -56,15 +56,14 @@ model OrderItem {
 }
 
 model Animal {
-  id         Int     @id @default(autoincrement())
-  nome       String
-  especie    String
-  idade      Int
-  descricao  String
-  imagemURL  String
-  disponivel Boolean @default(true)
-
-  usuario   User?   @relation(fields: [usuarioId], references: [id])
+  id        Int            @id @default(autoincrement())
+  nome      String
+  especie   String
+  idade     Int
+  descricao String
+  imagemURL String
+  status    AdoptionStatus @default(Pendente)
+  usuario   User?          @relation(fields: [usuarioId], references: [id])
   usuarioId String?
 
   @@index([usuarioId])
