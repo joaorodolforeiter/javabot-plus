@@ -36,7 +36,6 @@ export default async function page() {
     await prisma.order.create({
       data: {
         userId: user!.id,
-        status: "Pendente",
         totalAmount: items.reduce(
           (acc, item) => acc + item.quantity * item.product.preco,
           0
