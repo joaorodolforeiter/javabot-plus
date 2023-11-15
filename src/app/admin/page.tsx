@@ -1,3 +1,4 @@
+import AnimalCard from "@/src/components/AnimalCard";
 import { authOptions } from "@/src/lib/authOptions";
 import { prisma } from "@/src/lib/prisma";
 import { Person } from "@phosphor-icons/react/dist/ssr";
@@ -22,10 +23,19 @@ export default async function page() {
     include: { orders: true, adocoes: true },
   });
 
+  const pendingAnimals = await prisma.animal.findMany({
+    where: { status: "Pendente" },
+  });
+
   return (
     <div className="flex">
       <div className="flex-1">
-        {user?.role === "ADMIN" ? <div>É admin</div> : <div>Não é admin</div>}
+        <h1 className="text-3xl mb-8">Adoçoes não confirmadas</h1>
+        <div className="flex flex-wrap gap-3">
+          {pendingAnimals.map((animal) => (
+            <AnimalCard key={animal.id} animal={animal} />
+          ))}
+        </div>
       </div>
       <div className="flex flex-col gap-3 flex-1">
         {users.map((user) => (
