@@ -21,6 +21,10 @@ export default async function page() {
   });
   const items = user?.shoppingCart?.items!;
 
+  if (items.length == 0) {
+    redirect("/loja");
+  }
+
   async function handleSubmit(formData: FormData) {
     "use server";
     const user = await prisma.user.findUnique({
