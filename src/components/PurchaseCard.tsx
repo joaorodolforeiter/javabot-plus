@@ -21,7 +21,9 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
       key={order.id}
       onClick={() => orderItems.length !== 1 && setIsClosed(!isClosed)}
     >
-      <div className="pb-3 border-b border-slate-400">{order.status}</div>
+      <div className="pb-3 border-b border-slate-400">
+        {order.shipmentStatus}
+      </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
           <Image

@@ -12,12 +12,11 @@ model Order {
   id             Int            @id @default(autoincrement())
   orderNumber    String         @default(uuid())
   totalAmount    Float
-  status         String
   user           User           @relation(fields: [userId], references: [id])
   userId         String
   orderItems     OrderItem[]
   createdAt      DateTime       @default(now())
-  shipmentStatus ShipmentStatus @default(PENDING)
+  shipmentStatus ShipmentStatus @default(Pendente)
 
   @@index([userId])
 }
@@ -122,9 +121,9 @@ enum Role {
 }
 
 enum ShipmentStatus {
-  PENDING
-  SHIPPED
-  DELIVERED
+  Pendente
+  Enviada
+  Entrege
 }
 
 model VerificationToken {
