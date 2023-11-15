@@ -21,8 +21,9 @@ export default function PurchaseCard({ order }: { order: OrdersWithItems }) {
       key={order.id}
       onClick={() => orderItems.length !== 1 && setIsClosed(!isClosed)}
     >
-      <div className="pb-3 border-b border-slate-400">
-        {order.shipmentStatus}
+      <div className="pb-3 border-b border-slate-400 flex justify-between">
+        <div>{order.shipmentStatus}</div>
+        <div>{order.createdAt.toDateString()}</div>
       </div>
       <div className="flex justify-between items-center">
         <div className="flex gap-3">

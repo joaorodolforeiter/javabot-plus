@@ -14,6 +14,10 @@ export default async function page() {
     where: { email: session?.user?.email },
   });
 
+  if (user?.role !== "ADMIN") {
+    redirect("/");
+  }
+
   const users = await prisma.user.findMany({
     include: { orders: true, adocoes: true },
   });

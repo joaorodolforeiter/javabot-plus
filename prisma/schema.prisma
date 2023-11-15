@@ -126,6 +126,11 @@ enum ShipmentStatus {
   Entrege
 }
 
+enum AdoptionStatus {
+  Pendente
+  Confirmada
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
