@@ -9,13 +9,15 @@ generator client {
 }
 
 model Order {
-  id          Int         @id @default(autoincrement())
-  orderNumber String      @default(uuid())
-  totalAmount Float
-  status      String
-  user        User        @relation(fields: [userId], references: [id])
-  userId      String
-  orderItems  OrderItem[]
+  id             Int            @id @default(autoincrement())
+  orderNumber    String         @default(uuid())
+  totalAmount    Float
+  status         String
+  user           User           @relation(fields: [userId], references: [id])
+  userId         String
+  orderItems     OrderItem[]
+  createdAt      DateTime       @default(now())
+  shipmentStatus ShipmentStatus @default(PENDING)
 
   @@index([userId])
 }
@@ -117,6 +119,12 @@ model User {
 enum Role {
   USER
   ADMIN
+}
+
+enum ShipmentStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
 }
 
 model VerificationToken {
