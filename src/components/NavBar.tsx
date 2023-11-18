@@ -1,7 +1,11 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-import { List, PawPrint } from "@phosphor-icons/react/dist/ssr";
+import {
+  List,
+  PawPrint,
+  ShoppingCartSimple,
+} from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
@@ -23,22 +27,31 @@ export default function NavBar() {
     <nav className="top-0 fixed w-screen bg-slate-100 shadow-sm">
       <div className="h-16 flex justify-between items-center px-8">
         <Link href={"/"} className="font-bold text-xl flex gap-3 items-center">
-          <PawPrint size={32} weight="fill" /> Javabot Plus
+          <PawPrint size={32} weight="fill" />
+          <div className="max-sm:hidden">Javabot Plus</div>
         </Link>
 
-        <div className="flex justify-center items-center gap-6">
-          <div className="gap-3 sm:flex hidden">
-            <Link
-              className="rounded-lg hover:bg-slate-300 p-2 transition-all"
-              href="/loja"
-            >
-              Loja
-            </Link>
+        <div className="flex justify-center items-center gap-3">
+          <div className="gap-3 flex justify-center items-center">
+            <div className="gap-3 hidden sm:flex justify-center items-center">
+              <Link
+                className="rounded-lg hover:bg-slate-300 p-2 transition-all"
+                href="/loja"
+              >
+                Loja
+              </Link>
+              <Link
+                className="rounded-lg hover:bg-slate-300 p-2 transition-all"
+                href="/animals"
+              >
+                Animais
+              </Link>
+            </div>
             <Link
               className="rounded-lg hover:bg-slate-300 p-2 transition-all"
               href="/animals"
             >
-              Animais
+              <ShoppingCartSimple weight="fill" size={28} />
             </Link>
           </div>
           <div className="flex justify-center items-center gap-3">
@@ -58,9 +71,6 @@ export default function NavBar() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <Link href="/animals/meus">Meus Animais</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/cart">Carrinho</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link href="/loja/compras">Minhas Compras</Link>
