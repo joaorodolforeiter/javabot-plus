@@ -49,7 +49,7 @@ export default function NavBar() {
             </div>
             <Link
               className="rounded-lg hover:bg-slate-300 p-2 transition-all"
-              href="/animals"
+              href="/cart"
             >
               <ShoppingCartSimple weight="fill" size={28} />
             </Link>
