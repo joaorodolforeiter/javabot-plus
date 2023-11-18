@@ -30,12 +30,6 @@ export default function NavBar() {
           <div className="gap-3 sm:flex hidden">
             <Link
               className="rounded-lg hover:bg-slate-300 p-2 transition-all"
-              href="/"
-            >
-              Home
-            </Link>
-            <Link
-              className="rounded-lg hover:bg-slate-300 p-2 transition-all"
               href="/loja"
             >
               Loja
@@ -117,12 +111,6 @@ export default function NavBar() {
           isMenuOpen ? "flex" : "hidden"
         } flex-col gap-3 p-3 items-center text-lg sm:hidden`}
       >
-        <Link
-          className="rounded-lg hover:bg-slate-300 p-2 transition-all"
-          href="/"
-        >
-          Home
-        </Link>
         <Link
           className="rounded-lg hover:bg-slate-300 p-2 transition-all"
           href="/loja"

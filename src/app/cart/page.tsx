@@ -28,7 +28,7 @@ export default async function page() {
   return (
     <div className="flex flex-col">
       <div className="text-2xl mb-16">Meu Carrinho de Compras</div>
-      <div className="flex justify-between gap-8">
+      <div className="flex justify-between gap-8 flex-wrap">
         <div className="flex flex-col gap-3">
           {items.map((item) => (
             <CartItem
@@ -39,7 +39,7 @@ export default async function page() {
             />
           ))}
         </div>
-        <div className="bg-slate-100 rounded-md flex flex-col gap-3 p-6 h-fit flex-1">
+        <div className="bg-slate-100 rounded-md flex flex-col gap-3 h-fit flex-1 p-6">
           <div className="flex justify-between text-xl">
             <div>Total</div>
             R$
@@ -80,8 +80,8 @@ function CartItem({
   }
 
   return (
-    <form className="bg-slate-100 items-center flex p-3 justify-between rounded-md shadow-sm">
-      <div className="flex gap-3">
+    <form className="bg-slate-100 items-center flex p-3 justify-between rounded-md shadow-sm max-md:flex-wrap gap-3">
+      <div className="flex gap-3 w-full">
         <Image
           className="rounded-md shadow-sm aspect-square object-cover w-28"
           width={200}
@@ -89,14 +89,14 @@ function CartItem({
           src={product.imagemURL}
           alt="product image"
         />
-        <div className="flex w-56 flex-col justify-evenly">
+        <div className="flex flex-col justify-evenly w-full">
           <div className="text-sm font-bold">{product.marca}</div>
           <div>{product.nome}</div>
           <div>R${product.preco}</div>
         </div>
       </div>
 
-      <div className="flex items-center h-full gap-3 flex-wrap">
+      <div className="flex items-center justify-between gap-3 w-full">
         <select
           className="w-16 p-2 bg-slate-50 text-black shadow-md rounded-md"
           name="quantity"
