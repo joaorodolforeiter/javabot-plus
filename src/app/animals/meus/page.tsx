@@ -17,12 +17,12 @@ export default async function Page() {
   });
 
   return (
-    <div className="flex flex-col m-3 items-center gap-3">
+    <div className="flex flex-wrap justify-center m-3 items-center gap-5">
       {user?.adocoes.map((adocao) => (
         <Link
           href={`/animals/${adocao.id}`}
           key={String(adocao.id)}
-          className="flex max-w-sm w-full bg-slate-200 p-3 gap-3 shadow-md rounded-md"
+          className="flex max-w-sm w-full bg-slate-100 p-3 gap-3 shadow-md rounded-md"
         >
           <Image
             className="object-cover rounded-md shadow-md aspect-square w-28"
@@ -31,9 +31,16 @@ export default async function Page() {
             alt="Imagem do animal"
             src={adocao.imagemURL}
           />
-          <div>
+          <div className="flex flex-col gap-1">
             <div className="text-xl">{adocao.nome}</div>
             <div>{adocao.especie}</div>
+            {adocao.status === "Pendente" ? (
+              <div className="bg-red-300 p-2 rounded-md">Adoção Pendente</div>
+            ) : (
+              <div className="bg-emerald-50 p-2 rounded-md">
+                Adoção Confirmada
+              </div>
+            )}
           </div>
         </Link>
       ))}

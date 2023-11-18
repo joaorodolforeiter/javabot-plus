@@ -1,7 +1,9 @@
 import { authOptions } from "@/src/lib/authOptions";
 import { prisma } from "@/src/lib/prisma";
+import { Trash } from "@phosphor-icons/react/dist/ssr";
 import { Product } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -33,6 +35,7 @@ export default async function page() {
               key={item.id}
               product={item.product}
               quantity={item.quantity}
+              id={item.id}
             />
           ))}
         </div>
@@ -62,12 +65,22 @@ export default async function page() {
 function CartItem({
   product,
   quantity,
+  id,
 }: {
   product: Product;
   quantity: number;
+  id: number;
 }) {
+  async function deleteCartItemAction() {
+    "use server";
+
+    await prisma.shoppingCartItem.delete({ where: { id: id } });
+
+    revalidatePath("/cart");
+  }
+
   return (
-    <div className="bg-slate-100 items-center flex p-3 justify-between rounded-md shadow-sm">
+    <form className="bg-slate-100 items-center flex p-3 justify-between rounded-md shadow-sm">
       <div className="flex gap-3">
         <Image
           className="rounded-md shadow-sm aspect-square object-cover w-28"
@@ -83,7 +96,7 @@ function CartItem({
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-3 flex-wrap">
+      <div className="flex items-center h-full gap-3 flex-wrap">
         <select
           className="w-16 p-2 bg-slate-50 text-black shadow-md rounded-md"
           name="quantity"
@@ -101,7 +114,13 @@ function CartItem({
           <option value="10">10+</option>
         </select>
         <div className="w-20">R${(quantity * product.preco).toFixed(2)}</div>
+        <button
+          className="bg-red-400 shadow-md rounded-md p-2 self-start"
+          formAction={deleteCartItemAction}
+        >
+          <Trash className="text-white" weight="fill" size={20} />
+        </button>
       </div>
-    </div>
+    </form>
   );
 }
