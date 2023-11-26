@@ -24,7 +24,7 @@ export default async function page() {
   });
 
   const pendingAnimals = await prisma.animal.findMany({
-    where: { status: "Pendente" },
+    where: { status: "Pendente", NOT: { usuario: null } },
   });
 
   return (

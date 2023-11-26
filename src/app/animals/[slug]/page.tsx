@@ -80,6 +80,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       </div>
                       <div> {animal.usuario?.email}</div>
                       <div> {animal.usuario?.telefone}</div>
+                      <div> {animal.usuario?.cpf}</div>
                       {animal.status === "Pendente" ? (
                         <button
                           formAction={acceptAdoptionAction}
