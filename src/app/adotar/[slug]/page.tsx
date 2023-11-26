@@ -79,55 +79,52 @@ export default async function Page({ params }: { params: { slug: string } }) {
         >
           <div className="text-xl font-semibold">Informações Pessoais</div>
 
-          {!user?.endereco && (
-            <label className="flex flex-col">
-              Endereço
-              <input
-                className="shadow-md rounded-md p-2"
-                placeholder="Endereço..."
-                type="text"
-                name="endereco"
-                required
-              />
-            </label>
-          )}
-          {!user?.telefone && (
-            <label className="flex flex-col">
-              Telefone
-              <input
-                className="shadow-md rounded-md p-2"
-                placeholder="Telefone..."
-                type="tel"
-                name="telefone"
-                required
-              />
-            </label>
-          )}
-          {!user?.cpf && (
-            <label className="flex flex-col">
-              CPF
-              <input
-                className="shadow-md rounded-md p-2"
-                placeholder="CPF..."
-                type="text"
-                name="cpf"
-                pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
-                required
-              />
-            </label>
-          )}
-          {!user?.dataNascimento && (
-            <label className="flex flex-col">
-              Data de nascimento
-              <input
-                className="shadow-md rounded-md p-2"
-                placeholder="Data de nascimento..."
-                type="date"
-                name="data-nascimento"
-                required
-              />
-            </label>
-          )}
+          <label className="flex flex-col">
+            Endereço
+            <input
+              className="shadow-md rounded-md p-2"
+              placeholder="Endereço..."
+              type="text"
+              name="endereco"
+              defaultValue={user?.endereco || ""}
+              required
+            />
+          </label>
+          <label className="flex flex-col">
+            Telefone
+            <input
+              className="shadow-md rounded-md p-2"
+              placeholder="Telefone..."
+              type="tel"
+              name="telefone"
+              defaultValue={user?.telefone || ""}
+              required
+            />
+          </label>
+          <label className="flex flex-col">
+            CPF
+            <input
+              className="shadow-md rounded-md p-2"
+              placeholder="CPF..."
+              type="text"
+              name="cpf"
+              maxLength={14}
+              pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}.[0-9]{2}"
+              defaultValue={user?.cpf || ""}
+              required
+            />
+          </label>
+          <label className="flex flex-col">
+            Data de nascimento
+            <input
+              className="shadow-md rounded-md p-2"
+              placeholder="Data de nascimento..."
+              type="date"
+              name="data-nascimento"
+              defaultValue={String(user?.dataNascimento) || Date.now()}
+              required
+            />
+          </label>
 
           <button className="bg-emerald-200 hover:bg-emerald-300 hover:shadow-lg transition-all p-3 mt-2 shadow-md rounded-md">
             Enviar Solicitação
