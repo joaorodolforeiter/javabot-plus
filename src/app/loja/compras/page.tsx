@@ -20,11 +20,11 @@ export default async function page() {
     },
   });
 
-  if (orders.length === 0 || true) {
+  if (orders.length === 0) {
     return (
       <div className="flex flex-col justify-center items-center gap-3">
         <SmileySad size={120} weight="fill" color={colors.slate[300]} />
-        <div>Carrinho vazio</div>
+        <div>Sem Compras</div>
         <Link href="/loja" className="shadow-md bg-emerald-100 rounded-md p-3">
           Voltar para a loja
         </Link>
