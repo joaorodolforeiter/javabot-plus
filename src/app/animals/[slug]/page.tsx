@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-slate-100 p-3 rounded-md shadow-sm">
       <div className="flex flex-col md:flex-row items-center">
         <Image
           className="h-80 w-80 aspect-square object-cover shadow-lg rounded-lg"
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                   Adotado
                 </div>
                 {session?.user && user?.role === "ADMIN" && (
-                  <form className="flex justify-center flex-wrap items-center bg-slate-100 p-6 rounded-md shadow-sm gap-6">
+                  <form className="flex justify-center flex-wrap items-center bg-slate-200 p-6 rounded-md shadow-sm gap-6">
                     <Image
                       className="rounded-full shadow-sm object-cover bg-white"
                       src={animal.usuario?.image || ""}
