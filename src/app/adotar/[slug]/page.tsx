@@ -121,7 +121,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
               placeholder="Data de nascimento..."
               type="date"
               name="data-nascimento"
-              defaultValue={String(user?.dataNascimento) || Date.now()}
+              defaultValue={user?.dataNascimento
+                ?.toISOString()
+                .substring(0, 10)}
               required
             />
           </label>

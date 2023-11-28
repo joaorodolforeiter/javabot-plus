@@ -29,68 +29,66 @@ export default async function page() {
     <div className="flex justify-center items-center h-full">
       <form
         action={handleSubmit}
-        className="flex flex-col max-w-md w-full p-6 bg-slate-200 rounded-lg shadow-lg gap-1"
+        className="flex flex-col max-w-md w-full p-6 bg-slate-200 rounded-md shadow-md gap-1"
       >
-        <div className="flex">
-          <div className="space-y-2">
-            <label htmlFor="nome">Nome</label>
+        <div className="flex justify-between gap-3">
+          <label className="flex flex-col gap-1">
+            Nome
             <input
+              className="p-1 shadow-sm rounded-md w-full"
               type="text"
               name="nome"
-              id="nome"
               placeholder="Nome do animal..."
               maxLength={150}
               required
             />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="especie">Especie</label>
+          </label>
+          <label className="flex flex-col gap-1">
+            Especie
             <input
+              className="p-1 shadow-sm rounded-md w-full"
               type="text"
               name="especie"
-              id="especie"
               placeholder="Especie do animal..."
               maxLength={150}
               required
             />
-          </div>
+          </label>
         </div>
-
-        <label className="mt-2" htmlFor="idade">
+        <label className="flex flex-col gap-1">
           Idade
+          <input
+            className="p-1 shadow-sm rounded-md w-full"
+            type="number"
+            name="idade"
+            placeholder="Idade do animal..."
+            max={500}
+            min={0}
+            required
+          />
         </label>
-        <input
-          type="number"
-          name="idade"
-          id="idade"
-          placeholder="Idade do animal..."
-          max={500}
-          min={0}
-          required
-        />
-        <label className="mt-2" htmlFor="descricao">
+        <label className="flex flex-col gap-1">
           Descricao
+          <textarea
+            className="resize-none p-1 shadow-sm rounded-md w-full"
+            rows={4}
+            name="descricao"
+            placeholder="Descrição do animal..."
+            maxLength={150}
+            required
+          ></textarea>
         </label>
-        <textarea
-          className="resize-none"
-          rows={4}
-          name="descricao"
-          id="descricao"
-          placeholder="Descrição do animal..."
-          maxLength={150}
-          required
-        ></textarea>
-        <label className="mt-2" htmlFor="imagemURL">
+        <label className="flex flex-col gap-1">
           URL da Imagem
+          <input
+            className="p-1 shadow-sm rounded-md w-full"
+            type="text"
+            name="imagemURL"
+            placeholder="Url da Imagem..."
+            maxLength={150}
+            required
+          />
         </label>
-        <input
-          type="text"
-          name="imagemURL"
-          id="imagemURL"
-          placeholder="Url da Imagem..."
-          maxLength={150}
-          required
-        />
         <button
           className="mt-3 w-full bg-slate-300 p-3 rounded-lg shadow-md"
           type="submit"

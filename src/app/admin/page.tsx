@@ -1,9 +1,10 @@
 import AnimalCard from "@/src/components/AnimalCard";
 import { authOptions } from "@/src/lib/authOptions";
 import { prisma } from "@/src/lib/prisma";
-import { Person } from "@phosphor-icons/react/dist/ssr";
+import { Person, Plus } from "@phosphor-icons/react/dist/ssr";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function page() {
@@ -28,9 +29,15 @@ export default async function page() {
   });
 
   return (
-    <div className="flex">
-      <div className="flex-1">
-        <h1 className="text-3xl mb-8">Adoçoes não confirmadas</h1>
+    <div className="flex gap-8">
+      <div className="flex-1 flex flex-col gap-3">
+        <Link
+          className="flex p-6 shadow-sm rounded-md justify-center gap-3 items-center text-lg bg-slate-200 w-full"
+          href={"/add/animal/"}
+        >
+          <Plus size={32} /> Adicionar um animal
+        </Link>
+        <h1 className="text-3xl mb-4 mt-6">Adoçoes não confirmadas</h1>
         <div className="flex flex-wrap gap-3">
           {pendingAnimals.map((animal) => (
             <AnimalCard key={animal.id} animal={animal} />
