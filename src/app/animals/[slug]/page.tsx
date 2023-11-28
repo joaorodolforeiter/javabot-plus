@@ -31,6 +31,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
     revalidatePath("/animals/[slug]", "page");
   }
 
+  async function rejectAdoptionAction() {
+    "use server";
+
+    await prisma.animal.update({
+      where: { id: animal?.id },
+      data: { status: "Pendente", usuarioId: null },
+    });
+
+    revalidatePath("/animals/[slug]", "page");
+    redirect("/admin");
+  }
+
   if (!animal) {
     redirect("/animals");
   }
@@ -74,7 +86,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       height={200}
                       alt=""
                     />
-                    <div>
+                    <div className="flex flex-col gap-1">
                       <div className="font-semibold">
                         Adotado por {animal.usuario?.name}
                       </div>
@@ -82,12 +94,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
                       <div> {animal.usuario?.telefone}</div>
                       <div> {animal.usuario?.cpf}</div>
                       {animal.status === "Pendente" ? (
-                        <button
-                          formAction={acceptAdoptionAction}
-                          className="p-2 shadow-md bg-emerald-50 rounded-md w-full"
-                        >
-                          Aprovar Adoção
-                        </button>
+                        <div className="flex flex-col gap-3">
+                          <button
+                            formAction={acceptAdoptionAction}
+                            className="p-2 shadow-md bg-emerald-50 rounded-md w-full"
+                          >
+                            Aprovar Adoção
+                          </button>
+                          <button
+                            formAction={rejectAdoptionAction}
+                            className="p-2 shadow-md bg-red-50 rounded-md w-full"
+                          >
+                            Reprovar Adoção
+                          </button>
+                        </div>
                       ) : (
                         <div className="p-2 shadow-sm bg-slate-200 rounded-md w-full flex justify-center items-center">
                           Adoção Aprovada
