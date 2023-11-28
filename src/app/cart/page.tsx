@@ -88,22 +88,9 @@ function CartItem({ cartItem }: { cartItem: ShoppingCartItemsWithProducts }) {
       </div>
 
       <div className="flex items-center justify-between gap-3 w-full">
-        <select
-          className="w-16 p-2 bg-slate-50 text-black shadow-md rounded-md"
-          name="quantity"
-          defaultValue={cartItem.quantity}
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10+</option>
-        </select>
+        <div className="w-16 p-2 bg-slate-50 text-black shadow-md rounded-md">
+          {cartItem.quantity}
+        </div>
         <div className="w-20">
           R${(cartItem.quantity * cartItem.product.preco).toFixed(2)}
         </div>
