@@ -6,7 +6,7 @@ export default async function Loja() {
 
   return (
     <div className="flex items-center flex-col">
-      <h1 className="text-4xl mt-4">Produtos compraveis</h1>
+      <h1 className="text-4xl mt-4">Produtos á venda</h1>
       <div className="py-14 flex justify-center flex-wrap gap-6">
         {products.map((product) => (
           <ProductCard

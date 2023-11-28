@@ -37,7 +37,7 @@ export default async function page() {
         >
           <Plus size={32} /> Adicionar um animal
         </Link>
-        <h1 className="text-3xl mb-4 mt-6">Adoçoes não confirmadas</h1>
+        <h1 className="text-3xl mb-4 mt-6">Adoções não confirmadas</h1>
         <div className="flex flex-wrap gap-3">
           {pendingAnimals.map((animal) => (
             <AnimalCard key={animal.id} animal={animal} />
